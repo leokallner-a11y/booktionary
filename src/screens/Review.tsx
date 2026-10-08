@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import type { CSSProperties } from 'react'
 import { Header, Meanings } from '../components/common'
+import { bookColor } from '../util'
 import { href } from '../router'
 import type { Book, SavedWord } from '../types'
 
@@ -26,7 +28,7 @@ export function Review({ book, words }: { book: Book; words: SavedWord[] }) {
   return (
     <>
       <Header title="Review" back={href({ name: 'book', bookId: book.id })} />
-      <main className="page">
+      <main className="page" style={{ '--book': bookColor(book.title) } as CSSProperties}>
         {!card ? (
           <p className="muted">No words saved for this book yet.</p>
         ) : (

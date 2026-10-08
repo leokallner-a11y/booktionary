@@ -1,5 +1,6 @@
 import { Cover, Header } from '../components/common'
-import { plural } from '../util'
+import type { CSSProperties } from 'react'
+import { bookColor, plural } from '../util'
 import { href } from '../router'
 import type { Store } from '../store'
 
@@ -19,6 +20,20 @@ export function Home({ store, tab }: { store: Store; tab: 'current' | 'past' }) 
         }
       />
       <main className="page">
+        {words.length > 0 && (
+          <div className="hero">
+            <div className="hero-number">{words.length}</div>
+            <div className="hero-label">
+              {words.length === 1 ? 'word' : 'words'} saved from {plural(new Set(words.map((w) => w.bookId)).size, 'book')}
+            </div>
+            {words.length >= 2 && (
+              <a className="button light" href={href({ name: 'quiz', bookId: 'all' })}>
+                Quiz me
+              </a>
+            )}
+          </div>
+        )}
+
         <nav className="tabs" role="tablist">
           <a role="tab" aria-selected={tab === 'current'} href={href({ name: 'home', tab: 'current' })}>
             Current Books
@@ -45,7 +60,11 @@ export function Home({ store, tab }: { store: Store; tab: 'current' | 'past' }) 
           <ul className="book-list">
             {shown.map((b) => (
               <li key={b.id}>
-                <a className="book-card" href={href({ name: 'book', bookId: b.id })}>
+                <a
+                  className="book-card"
+                  style={{ '--book': bookColor(b.title) } as CSSProperties}
+                  href={href({ name: 'book', bookId: b.id })}
+                >
                   <Cover book={b} size="sm" />
                   <div>
                     <div className="book-title">{b.title}</div>
@@ -64,11 +83,6 @@ export function Home({ store, tab }: { store: Store; tab: 'current' | 'past' }) 
           </a>
         )}
 
-        {words.length >= 2 && (
-          <a className="button secondary wide" href={href({ name: 'quiz', bookId: 'all' })}>
-            Quiz me on all {words.length} words
-          </a>
-        )}
       </main>
     </>
   )

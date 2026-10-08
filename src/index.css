@@ -1,17 +1,20 @@
+/* A warm paper background with a bold violet brand color, plus a color per book. */
 :root {
-  --bg: #faf7f2;
+  --bg: #fbf8f3;
   --surface: #ffffff;
-  --text: #24211d;
-  --muted: #776f65;
-  --line: #e6dfd4;
-  --accent: #8a4b2a;
+  --text: #1f1c2c;
+  --muted: #6f6a7d;
+  --line: #ebe6ef;
+  --accent: #5b4fe0;
+  --accent-2: #e0607e;
   --accent-text: #ffffff;
-  --accent-soft: #f3e7dd;
-  --right: #2f7d4f;
-  --right-soft: #e2f2e8;
-  --wrong: #b23b3b;
-  --wrong-soft: #f8e3e3;
-  --radius: 12px;
+  --accent-soft: #eeecfd;
+  --right: #1f9d5c;
+  --right-soft: #dff5e8;
+  --wrong: #d64545;
+  --wrong-soft: #fde4e4;
+  --book: var(--accent);
+  --radius: 14px;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
   background: var(--bg);
@@ -20,18 +23,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1b1916;
-    --surface: #26231f;
-    --text: #efe9e1;
-    --muted: #a69c90;
-    --line: #3a352f;
-    --accent: #e0a079;
-    --accent-text: #1b1916;
-    --accent-soft: #3a2c22;
-    --right: #6fcf97;
-    --right-soft: #1f3a2a;
-    --wrong: #ef8a8a;
-    --wrong-soft: #422424;
+    --bg: #15131d;
+    --surface: #211e2c;
+    --text: #f1eff7;
+    --muted: #a9a3b8;
+    --line: #332f42;
+    --accent: #8b80ff;
+    --accent-2: #ff8aa5;
+    --accent-text: #15131d;
+    --accent-soft: #2c2850;
+    --right: #5fd795;
+    --right-soft: #1b3a2a;
+    --wrong: #ff8a8a;
+    --wrong-soft: #45222a;
   }
 }
 
@@ -585,4 +589,174 @@ section > .row {
 
 .choice.faded {
   opacity: 0.5;
+}
+
+/* Color */
+
+.hero {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 14px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #5b4fe0 0%, #9b51d6 55%, #e0607e 100%);
+  box-shadow: 0 8px 24px rgb(91 79 224 / 0.3);
+}
+
+.hero-number {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.hero-label {
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.button.light {
+  background: #fff;
+  color: #5b4fe0;
+  min-height: 40px;
+}
+
+.book-card {
+  border-left: 5px solid var(--book);
+}
+
+.book-card .count {
+  color: var(--book);
+  font-weight: 600;
+}
+
+.cover-blank {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--book) 75%, white), var(--book));
+  color: #fff;
+  padding: 6px;
+  text-align: center;
+  font-size: 9px;
+  line-height: 1.2;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.cover-blank span {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cover-md.cover-blank {
+  font-size: 12px;
+}
+
+.book-hero {
+  margin: -16px -16px 0;
+  padding: 20px 16px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--book) 22%, var(--bg)), var(--bg));
+}
+
+.book-hero .book-title {
+  font-size: 20px;
+}
+
+.lookup-form input {
+  border-color: color-mix(in srgb, var(--book) 45%, var(--line));
+}
+
+.word-list .word {
+  color: var(--book);
+}
+
+.section-head h2::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 4px;
+  margin-top: 4px;
+  border-radius: 2px;
+  background: var(--book);
+}
+
+.pos {
+  display: inline-block;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 99px;
+}
+
+.pos-noun {
+  background: #e3efff;
+  color: #2563c9;
+}
+
+.pos-verb {
+  background: #dff5e8;
+  color: #1a8a50;
+}
+
+.pos-adj {
+  background: #f1e6fd;
+  color: #8a3fd1;
+}
+
+.pos-adv {
+  background: #fff0dc;
+  color: #c26a0a;
+}
+
+.pos-other {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  .pos-noun { background: #1d2d4a; color: #8ab8ff; }
+  .pos-verb { background: #1b3a2a; color: #6fdc9e; }
+  .pos-adj { background: #352450; color: #c79bff; }
+  .pos-adv { background: #3d2b14; color: #ffb866; }
+}
+
+.flashcard {
+  border: 0;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--book) 80%, white), var(--book));
+  color: #fff;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--book) 35%, transparent);
+}
+
+.flashcard.flipped {
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid var(--book);
+}
+
+.progress {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  overflow: hidden;
+}
+
+.progress > div {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #5b4fe0, #e0607e);
+  transition: width 0.3s;
+}
+
+.quiz-word {
+  color: var(--accent);
+}
+
+.score-emoji {
+  font-size: 48px;
+}
+
+.toast::before {
+  content: '✓ ';
 }

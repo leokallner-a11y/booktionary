@@ -1,5 +1,6 @@
 import { Cover, Header } from '../components/common'
-import { firstDefinition, plural } from '../util'
+import type { CSSProperties } from 'react'
+import { bookColor, firstDefinition, plural } from '../util'
 import { WordLookup } from '../components/WordLookup'
 import { href, navigate } from '../router'
 import type { Store } from '../store'
@@ -25,7 +26,7 @@ export function BookPage({ store, book }: { store: Store; book: Book }) {
   return (
     <>
       <Header title={book.title} back={back} />
-      <main className="page">
+      <main className="page" style={{ '--book': bookColor(book.title) } as CSSProperties}>
         <div className="book-hero">
           <Cover book={book} size="md" />
           <div>

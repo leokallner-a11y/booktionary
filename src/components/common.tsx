@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import type { Book, SavedWord } from '../types'
+import { bookColor, posClass } from '../util'
 
 export function Header({ title, back, action }: { title: string; back?: string; action?: ReactNode }) {
   return (
@@ -22,8 +23,8 @@ export function Cover({ book, size = 'md' }: { book: Pick<Book, 'title' | 'cover
     return <img className={`cover cover-${size}`} src={book.coverUrl} alt="" loading="lazy" />
   }
   return (
-    <div className={`cover cover-${size} cover-blank`} aria-hidden="true">
-      {book.title.slice(0, 1).toUpperCase()}
+    <div className={`cover cover-${size} cover-blank`} style={{ '--book': bookColor(book.title) } as CSSProperties} aria-hidden="true">
+      <span>{book.title}</span>
     </div>
   )
 }
@@ -33,7 +34,7 @@ export function Meanings({ meanings }: { meanings: SavedWord['meanings'] }) {
     <div className="meanings">
       {meanings.map((m) => (
         <div key={m.partOfSpeech} className="meaning">
-          <div className="pos">{m.partOfSpeech}</div>
+          <span className={`pos ${posClass(m.partOfSpeech)}`}>{m.partOfSpeech}</span>
           <ol>
             {m.definitions.map((d, i) => (
               <li key={i}>{d}</li>

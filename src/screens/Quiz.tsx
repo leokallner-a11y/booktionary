@@ -97,7 +97,8 @@ export function Quiz({ store, bookId }: { store: Store; bookId: string }) {
       <Header title={book ? `Quiz: ${book.title}` : 'Quiz: all books'} back={back} />
       <main className="page">
         {done ? (
-          <div className="card center">
+          <div className="card center score-card">
+            <div className="score-emoji">{score === round.length ? '🏆' : score >= round.length / 2 ? '🎉' : '📚'}</div>
             <h2>
               {score} of {round.length} right
             </h2>
@@ -115,8 +116,11 @@ export function Quiz({ store, bookId }: { store: Store; bookId: string }) {
           </div>
         ) : (
           <>
+            <div className="progress" aria-label={`Question ${index + 1} of ${round.length}`}>
+              <div style={{ width: `${(index / round.length) * 100}%` }} />
+            </div>
             <p className="muted center">
-              Question {index + 1} of {round.length}
+              Question {index + 1} of {round.length} · {score} right so far
             </p>
             <h2 className="quiz-word">{q.word.word}</h2>
             <p className="muted center">What does it mean?</p>
