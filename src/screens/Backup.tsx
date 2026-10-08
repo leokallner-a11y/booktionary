@@ -3,9 +3,17 @@ import { Header } from '../components/common'
 import { plural } from '../util'
 import { href } from '../router'
 import { parseBackup, type Store } from '../store'
+import { getTheme, setTheme, type Theme } from '../theme'
+
+const THEMES: [Theme, string][] = [
+  ['dark', 'Dark'],
+  ['light', 'Light'],
+  ['auto', 'Match phone'],
+]
 
 export function Backup({ store }: { store: Store }) {
   const [message, setMessage] = useState('')
+  const [theme, setThemeState] = useState(getTheme)
   const { books, words } = store.data
 
   function exportData() {
@@ -33,8 +41,25 @@ export function Backup({ store }: { store: Store }) {
 
   return (
     <>
-      <Header title="Backup" back={href({ name: 'home', tab: 'current' })} />
+      <Header title="Settings" back={href({ name: 'home', tab: 'current' })} />
       <main className="page stack">
+        <h2 className="settings-heading">Appearance</h2>
+        <div className="theme-picker" role="group" aria-label="Appearance">
+          {THEMES.map(([value, label]) => (
+            <button
+              key={value}
+              aria-pressed={theme === value}
+              onClick={() => {
+                setTheme(value)
+                setThemeState(value)
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <h2 className="settings-heading">Backup</h2>
         <p>
           Your {plural(books.length, 'book')} and {plural(words.length, 'word')} are saved on this device only. Download a
           backup now and then so you don't lose them if you clear your browser or switch phones.

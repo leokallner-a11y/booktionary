@@ -1,5 +1,6 @@
 import { Cover, Header } from '../components/common'
-import type { CSSProperties } from 'react'
+import type { ChangeEvent, CSSProperties } from 'react'
+import { coverFromPhoto } from '../photo'
 import { bookColor, firstDefinition, plural } from '../util'
 import { WordLookup } from '../components/WordLookup'
 import { href, navigate } from '../router'
@@ -14,6 +15,17 @@ export function BookPage({ store, book }: { store: Store; book: Book }) {
     store.updateBook(book.id, book.status === 'current'
       ? { status: 'past', finishedAt: Date.now() }
       : { status: 'current', finishedAt: undefined })
+  }
+
+  async function onCoverPhoto(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      store.updateBook(book.id, { coverUrl: await coverFromPhoto(file) })
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'That photo could not be used.')
+    }
   }
 
   function remove() {
@@ -33,6 +45,10 @@ export function BookPage({ store, book }: { store: Store; book: Book }) {
             <div className="book-title">{book.title}</div>
             <div className="muted">{book.author}</div>
             {book.status === 'past' && <div className="badge">Finished</div>}
+            <label className="photo-button">
+              📷 {book.coverUrl?.startsWith('data:') ? 'Retake cover photo' : 'Use a photo of my copy'}
+              <input type="file" accept="image/*" onChange={onCoverPhoto} />
+            </label>
           </div>
         </div>
 

@@ -14,7 +14,7 @@ export function Home({ store, tab }: { store: Store; tab: 'current' | 'past' }) 
       <Header
         title="Booktionary"
         action={
-          <a className="icon-link" href={href({ name: 'backup' })} aria-label="Backup">
+          <a className="icon-link" href={href({ name: 'backup' })} aria-label="Settings">
             ⋯
           </a>
         }

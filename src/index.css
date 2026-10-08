@@ -14,6 +14,14 @@
   --wrong: #d64545;
   --wrong-soft: #fde4e4;
   --book: var(--accent);
+  --noun-bg: #e3efff;
+  --noun: #2563c9;
+  --verb-bg: #dff5e8;
+  --verb: #1a8a50;
+  --adj-bg: #f1e6fd;
+  --adj: #8a3fd1;
+  --adv-bg: #fff0dc;
+  --adv: #c26a0a;
   --radius: 14px;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--text);
@@ -21,8 +29,34 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* Dark is the default; Settings can switch to light or follow the phone. */
+:root[data-theme='dark'] {
+  --bg: #15131d;
+  --surface: #211e2c;
+  --text: #f1eff7;
+  --muted: #a9a3b8;
+  --line: #332f42;
+  --accent: #8b80ff;
+  --accent-2: #ff8aa5;
+  --accent-text: #15131d;
+  --accent-soft: #2c2850;
+  --right: #5fd795;
+  --right-soft: #1b3a2a;
+  --wrong: #ff8a8a;
+  --wrong-soft: #45222a;
+  --noun-bg: #1d2d4a;
+  --noun: #8ab8ff;
+  --verb-bg: #1b3a2a;
+  --verb: #6fdc9e;
+  --adj-bg: #352450;
+  --adj: #c79bff;
+  --adv-bg: #3d2b14;
+  --adv: #ffb866;
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root[data-theme='auto'] {
     --bg: #15131d;
     --surface: #211e2c;
     --text: #f1eff7;
@@ -36,6 +70,15 @@
     --right-soft: #1b3a2a;
     --wrong: #ff8a8a;
     --wrong-soft: #45222a;
+    --noun-bg: #1d2d4a;
+    --noun: #8ab8ff;
+    --verb-bg: #1b3a2a;
+    --verb: #6fdc9e;
+    --adj-bg: #352450;
+    --adj: #c79bff;
+    --adv-bg: #3d2b14;
+    --adv: #ffb866;
+    color-scheme: dark;
   }
 }
 
@@ -691,35 +734,28 @@ section > .row {
 }
 
 .pos-noun {
-  background: #e3efff;
-  color: #2563c9;
+  background: var(--noun-bg);
+  color: var(--noun);
 }
 
 .pos-verb {
-  background: #dff5e8;
-  color: #1a8a50;
+  background: var(--verb-bg);
+  color: var(--verb);
 }
 
 .pos-adj {
-  background: #f1e6fd;
-  color: #8a3fd1;
+  background: var(--adj-bg);
+  color: var(--adj);
 }
 
 .pos-adv {
-  background: #fff0dc;
-  color: #c26a0a;
+  background: var(--adv-bg);
+  color: var(--adv);
 }
 
 .pos-other {
   background: var(--accent-soft);
   color: var(--accent);
-}
-
-@media (prefers-color-scheme: dark) {
-  .pos-noun { background: #1d2d4a; color: #8ab8ff; }
-  .pos-verb { background: #1b3a2a; color: #6fdc9e; }
-  .pos-adj { background: #352450; color: #c79bff; }
-  .pos-adv { background: #3d2b14; color: #ffb866; }
 }
 
 .flashcard {
@@ -759,4 +795,51 @@ section > .row {
 
 .toast::before {
   content: '✓ ';
+}
+
+.photo-button {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--book) 18%, transparent);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.photo-button input {
+  display: none;
+}
+
+.theme-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--accent-soft);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.theme-picker button {
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.theme-picker button[aria-pressed='true'] {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.settings-heading {
+  font-size: 15px;
+  color: var(--muted);
+  margin-top: 8px;
 }
